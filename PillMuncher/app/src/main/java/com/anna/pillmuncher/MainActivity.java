@@ -2,15 +2,22 @@ package com.anna.pillmuncher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,8 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //RelativeLayout layout1=(RelativeLayout) findViewById(R.id.ui_relative_layout);
+        //FrameLayout layout2=(FrameLayout) findViewById(R.id.ui_frame_layout);
+
+        //layout1.bringToFront();
+        //layout2.bringToFront();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
     }
 
 
@@ -89,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     // ** Called when the user clicks the Send button */
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -101,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user clicks the Send button */
     public void sendMessage2(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE2, message);
+        //RelativeLayout container = (RelativeLayout)this.findViewById(R.id.container);
+        //TestView t = (TextView)container.findViewById(R.id.txt);
+        Intent intent = new Intent(this, Activity2.class);
+        Button button_pill = (Button)this.findViewById(R.id.button2);
         startActivity(intent);
 
     }

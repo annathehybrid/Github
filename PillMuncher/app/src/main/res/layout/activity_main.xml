@@ -3,7 +3,7 @@
 
     android:id="@+id/fragment"
 
-    android:name="com.anna.pillmuncher.MainActivityFragment"
+    android:name="com.anna.pillmuncher.ForecastFragment"
 
     tools:layout="@layout/fragment_main"
     android:layout_width="match_parent"

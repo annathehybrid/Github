@@ -22,5 +22,7 @@
     <string name="search">Search</string>
     <string name="action_new">New thing</string>
     <string name="title_activity_activity2">Activity2</string>
-
+    <string name="you_took_it">Thanks for taking your pill</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
