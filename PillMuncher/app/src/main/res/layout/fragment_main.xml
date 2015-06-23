@@ -13,33 +13,12 @@
     tools:context=".MainActivityFragment">
 
 
-    <ListView
-        style="@style/ForecastListStyle"
-        android:id="@+id/listview_forecast"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:longClickable="true"
-        android:nestedScrollingEnabled="true"/>
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin">
-
-    <EditText
-        android:id="@+id/edit_message"
-        android:hint="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:lines="4"
-        android:inputType="textMultiLine"
-
-        />
 
 
     <Button
@@ -51,8 +30,7 @@
 
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="sendMessage"
-        android:layout_below="@id/edit_message" />
+        android:onClick="sendMessage"/>
 
     <Button
         android:id="@+id/button2"
@@ -66,6 +44,17 @@
         android:layout_alignParentStart="true"
         android:onClick="sendMessage2"/>
 
+        <ListView
+            style="@style/ForecastListStyle"
+            android:id="@+id/listview_forecast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:longClickable="true"
+            android:layout_below="@+id/button2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
     </RelativeLayout>
 
 

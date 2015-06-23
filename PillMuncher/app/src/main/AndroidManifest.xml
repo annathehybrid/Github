@@ -43,6 +43,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.anna.pillmuncher.MainActivity" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.anna.pillmuncher.MainActivity" />
+        </activity>
+        <activity
+            android:name=".MainBox"
+            android:label="@string/title_activity_main_box"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.anna.pillmuncher.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.anna.pillmuncher.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

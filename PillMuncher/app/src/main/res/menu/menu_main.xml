@@ -12,14 +12,24 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:orderInCategory="50"
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_new"
         android:title="@string/action_new"
         android:orderInCategory="50"
-        app:showAsAction="never"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_action_new"
+        />
+
+    <item android:id="@+id/action_map"
+            android:title="@string/action_map"
+            app:showAsAction="never" />
+
+    <item android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:orderInCategory="80"
+        android:icon="@drawable/ic_action_refresh"
         />
 
 
