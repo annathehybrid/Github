@@ -52,7 +52,7 @@
                 android:value="com.anna.pillmuncher.MainActivity" />
         </activity>
         <activity
-            android:name=".MainBox"
+            android:name=".Box"
             android:label="@string/title_activity_main_box"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -67,6 +67,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.anna.pillmuncher.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>

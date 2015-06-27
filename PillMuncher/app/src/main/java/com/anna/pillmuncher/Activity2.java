@@ -1,10 +1,14 @@
 package com.anna.pillmuncher;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridLayout;
+import android.widget.TextView;
 
 
 public class Activity2 extends AppCompatActivity {
@@ -13,6 +17,27 @@ public class Activity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity2);
+
+
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        Log.i("debug", "made it to new class");
+        // Create the text view
+
+        int padding = 50;
+        TextView textView = new TextView(this);
+        textView.setTextSize(40);
+        textView.setPadding(padding, padding, padding, padding);
+        textView.setText(message);
+
+
+
+        // Set the text view as the activity layout
+        GridLayout.LayoutParams layout = new GridLayout.LayoutParams();
+        addContentView(textView, layout);
+
     }
 
     @Override

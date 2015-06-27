@@ -21,7 +21,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         // Get the message from the intent
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String message = intent.getStringExtra(Box.EXTRA_MESSAGE);
 
         Log.i("debug", "made it to new class");
         // Create the text view

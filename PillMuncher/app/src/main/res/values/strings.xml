@@ -57,7 +57,10 @@
     <string name="action_map">Map Location</string>
 
     <string name="action_share">Share</string>
-    <string name="title_activity_main_box">MainBox</string>
+    <string name="title_activity_main_box">Box</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_box">Box</string>
 
+
+    <string name="open_weather_maps_app_id">11111</string>
 </resources>

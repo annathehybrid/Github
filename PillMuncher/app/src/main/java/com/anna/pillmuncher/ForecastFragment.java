@@ -36,9 +36,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ForecastFragment extends Fragment {
 
     private ArrayAdapter<String> mForecastAdapter;
@@ -95,7 +92,7 @@ public class ForecastFragment extends Fragment {
 
         View view  = inflater.inflate(R.layout.fragment_main, container, false);
 
-//return inflater.inflate(R.layout.fragment_main, container, false);
+        //return inflater.inflate(R.layout.fragment_main, container, false);
 
         // Create some dummy data for the ListView.  Here's a sample weekly forecast
         //String[] forecast_data = new String[] {

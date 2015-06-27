@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     // ** Called when the user clicks the Send button */
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, MainBox.class);
+        Intent intent = new Intent(this, Box.class);
         Button button_pill = (Button)this.findViewById(R.id.button1);
         startActivity(intent);
 
