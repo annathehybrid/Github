@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\jars\libs\internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\pre-dexed\debug\internal_impl-22.1.1-7f2d76fc263d1a98f04db1767a07c763cc4441bf.jar" />
+    </item>
+    <item
+        jar="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
+        <dex dex="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\pre-dexed\debug\classes-ed997392db2efe7c01a8fb6527f01451e1d55a1e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\pre-dexed\debug\classes-80c1bc8c740771fae32d97e73e7c218c1099d3f9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Anna\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.1\support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="C:\Users\Anna\AndroidStudioProjects\PillMuncher\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.1-6ad306088aa1730c7c2b5187f3f8177856f6b006.jar" />
+    </item>
+
+</items>
