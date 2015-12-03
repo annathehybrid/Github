@@ -1,0 +1,27 @@
+{
+        "air_force_blue_raf": {
+                "name": "Air Force Blue (Raf)",
+                "hex": "#5d8aa8",
+                "rgb": [93, 138, 168]
+        },
+        "air_force_blue_usaf": {
+                "name": "Air Force Blue (Usaf)",
+                "hex": "#00308f",
+                "rgb": [0, 48, 143]
+        },
+        "air_superiority_blue": {
+                "name": "Air Superiority Blue",
+                "hex": "#72a0c1",
+                "rgb": [114, 160, 193]
+        },
+        "alabama_crimson": {
+                "name": "Alabama Crimson",
+                "hex": "#a32638",
+                "rgb": [163, 38, 56]
+        },
+        "alice_blue": {
+                "name": "Alice Blue",
+                "hex": "#f0f8ff",
+                "rgb": [240, 248, 255]
+        }
+}

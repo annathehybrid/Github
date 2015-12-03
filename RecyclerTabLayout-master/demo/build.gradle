@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId "com.nshmura.recyclertablayout.demo"
+        minSdkVersion 7
+        targetSdkVersion COMPILE_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+    }
+
+    def signingConfigsFile = file("signingConfigs.release.gradle")
+    if (signingConfigsFile.exists()) {
+        apply from: signingConfigsFile.absolutePath, to: android
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            zipAlignEnabled true
+        }
+        release {
+            debuggable false
+            zipAlignEnabled true
+            if (signingConfigsFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+}
+
+dependencies {
+    compile project(':library')
+    //compile 'com.nshmura:recyclertablayout:0.1.0'
+    compile "com.android.support:appcompat-v7:"
+}
