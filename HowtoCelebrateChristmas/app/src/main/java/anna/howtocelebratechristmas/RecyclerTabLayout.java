@@ -1,8 +1,6 @@
 package anna.howtocelebratechristmas;
 
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,7 +78,6 @@ public class RecyclerTabLayout extends RecyclerView {
             extends RecyclerView.Adapter<T> {
 
         protected ViewPager mViewPager;
-        protected int mIndicatorPosition;
 
         public Adapter(ViewPager viewPager) {
             mViewPager = viewPager;
@@ -90,9 +87,6 @@ public class RecyclerTabLayout extends RecyclerView {
             return mViewPager;
         }
 
-        public int getCurrentIndicatorPosition() {
-            return mIndicatorPosition;
-        }
     }
 
 }

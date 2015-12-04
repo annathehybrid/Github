@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">How to Celebrate Christmas</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_send_email">Send the programmer an email</string>
 
     <string name="Tradition_Choice_1">Get a Christmas tree</string>
-    <string name="Tradition_Choice_2">Bake cookies</string>
+    <string name="Tradition_Choice_2">Bake Christmas cookies</string>
     <string name="Tradition_Choice_3">Hang a wreath on your door</string>
+    <string name="Tradition_Choice_4">Bake a Christmas cake</string>
+    <string name="Tradition_Choice_5">Drink a Christmas beverage</string>
+    <string name="Tradition_Choice_6">Cook a Christmas ham or another meat</string>
+    <string name="Tradition_Choice_7">Put oranges in stockings</string>
 
     <string name="title_activity_trees">Trees</string>
     <string name="title_activity_cookies">Cookies</string>

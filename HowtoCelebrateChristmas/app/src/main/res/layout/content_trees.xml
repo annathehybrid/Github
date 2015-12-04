@@ -23,18 +23,25 @@
             android:id="@+id/recycler_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_height"
-            android:background= "@drawable/ic_action_call"
+            android:background= "?attr/colorPrimary"
             >
 
     </anna.howtocelebratechristmas.RecyclerTabLayout>
 
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/header">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+
+    </FrameLayout>
 
 </RelativeLayout>
