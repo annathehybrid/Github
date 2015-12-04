@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">How to Celebrate Christmas</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="Tradition_Choice_1">Get a Christmas tree</string>
+    <string name="Tradition_Choice_2">Bake cookies</string>
+    <string name="Tradition_Choice_3">Hang a wreath on your door</string>
+
+    <string name="title_activity_trees">Trees</string>
+    <string name="title_activity_cookies">Cookies</string>
+    <string name="title_activity_test">Test</string>
+    <string name="title_activity_wreaths">Wreaths</string>
+
+</resources>
