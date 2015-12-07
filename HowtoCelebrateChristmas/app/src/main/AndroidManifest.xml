@@ -45,6 +45,42 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="anna.howtocelebratechristmas.MainActivity" />
         </activity>
+        <activity
+            android:name=".Beverages"
+            android:label="@string/title_activity_beverages"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.howtocelebratechristmas.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Entrees"
+            android:label="@string/title_activity_entrees"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.howtocelebratechristmas.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Cheer"
+            android:label="@string/title_activity_cheer"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.howtocelebratechristmas.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Decorations"
+            android:label="@string/title_activity_decorations"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.howtocelebratechristmas.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

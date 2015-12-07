@@ -21,17 +21,17 @@ public class Cookies_Adapter extends RecyclerTabLayout.Adapter<Cookies_Adapter.V
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tab_trees, parent, false);
+                .inflate(R.layout.tab_cookies, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Cookies_Information treeInformation = mAdapater.getColorItem(position);
-        holder.title.setText(treeInformation.name);
-        holder.color.setBackgroundColor(treeInformation.color);
+        Information information = mAdapater.getItem(position);
+        holder.title.setText(information.name);
+        holder.color.setBackgroundColor(information.color);
 
-        SpannableString name = new SpannableString(treeInformation.name);
+        SpannableString name = new SpannableString(information.name);
         holder.title.setText(name);
     }
 

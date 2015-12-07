@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Cookies_Pager_Adapter extends PagerAdapter {
 
-    private List<Cookies_Information> mItems = new ArrayList<>();
+    private List<Information> mItems = new ArrayList<>();
 
     public Cookies_Pager_Adapter() {
 
@@ -82,11 +82,11 @@ public class Cookies_Pager_Adapter extends PagerAdapter {
         return mItems.get(position).name;
     }
 
-    public Cookies_Information getColorItem(int position) {
+    public Information getItem(int position) {
         return mItems.get(position);
     }
 
-    public void addAll(List<Cookies_Information> items) {
+    public void addAll(List<Information> items) {
         mItems = new ArrayList<>(items);
     }
 

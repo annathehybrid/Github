@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,7 +33,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        ImageView southern_house = (ImageView) findViewById(R.id.southern_christmas_image);
+        southern_house.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Pick a tradition and swipe right!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(this);
@@ -88,21 +99,38 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (demo) {
 
             case Choice_1:
-                //Trees.startActivity(this, demo);
                 Intent tree_intent = new Intent(MainActivity.this, Trees.class);
                 startActivity(tree_intent);
                 break;
 
             case Choice_2:
-                //Trees.startActivity(this, demo);
                 Intent cookie_intent = new Intent(MainActivity.this, Cookies.class);
                 startActivity(cookie_intent);
                 break;
 
             case Choice_3:
-                //Trees.startActivity(this, demo);
                 Intent wreath_intent = new Intent(MainActivity.this, Wreaths.class);
                 startActivity(wreath_intent);
+                break;
+
+            case Choice_4:
+                Intent beverage_intent = new Intent(MainActivity.this, Beverages.class);
+                startActivity(beverage_intent);
+                break;
+
+            case Choice_5:
+                Intent entree_intent = new Intent(MainActivity.this, Entrees.class);
+                startActivity(entree_intent);
+                break;
+
+            case Choice_6:
+                Intent cheer_intent = new Intent(MainActivity.this, Cheer.class);
+                startActivity(cheer_intent);
+                break;
+
+            case Choice_7:
+                Intent decoration_intent = new Intent(MainActivity.this, Decorations.class);
+                startActivity(decoration_intent);
                 break;
         }
     }

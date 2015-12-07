@@ -6,7 +6,8 @@
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
     android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center"
+    >
 
     <View
         android:id="@+id/color"

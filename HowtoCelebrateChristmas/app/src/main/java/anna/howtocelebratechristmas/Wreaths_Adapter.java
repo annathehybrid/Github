@@ -27,11 +27,11 @@ public class Wreaths_Adapter extends RecyclerTabLayout.Adapter<Wreaths_Adapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Wreaths_Information wreathsInformation = mAdapater.getColorItem(position);
-        holder.title.setText(wreathsInformation.name);
-        holder.color.setBackgroundColor(wreathsInformation.color);
+        Information information = mAdapater.getColorItem(position);
+        holder.title.setText(information.name);
+        holder.color.setBackgroundColor(information.color);
 
-        SpannableString name = new SpannableString(wreathsInformation.name);
+        SpannableString name = new SpannableString(information.name);
         holder.title.setText(name);
     }
 

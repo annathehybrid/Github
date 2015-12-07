@@ -15,8 +15,10 @@ public class Cookies extends AppCompatActivity {
         setContentView(R.layout.activity_cookies);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        List<Cookies_Information> items = Cookies_Data.load_cookies_items();
+
+        List<Information> items = Cookies_Data.load_cookies_items();
 
         Cookies_Pager_Adapter adapter = new Cookies_Pager_Adapter();
         adapter.addAll(items);

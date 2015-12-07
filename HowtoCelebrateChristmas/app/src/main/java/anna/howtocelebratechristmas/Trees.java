@@ -10,16 +10,15 @@ import java.util.List;
 
 public class Trees extends AppCompatActivity {
 
-    private static final String KEY_DEMO = "demo";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trees);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        List<Trees_Information> items = Trees_Data.load_tree_items();
+        List<Information> items = Trees_Data.load_tree_items();
 
         Trees_Pager_Adapter adapter = new Trees_Pager_Adapter();
         adapter.addAll(items);

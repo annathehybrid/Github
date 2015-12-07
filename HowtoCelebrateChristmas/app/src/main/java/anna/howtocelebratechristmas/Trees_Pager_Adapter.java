@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Trees_Pager_Adapter extends PagerAdapter {
 
-    private List<Trees_Information> mItems = new ArrayList<>();
+    private List<Information> mItems = new ArrayList<>();
 
     public Trees_Pager_Adapter() {
 
@@ -87,11 +87,11 @@ public class Trees_Pager_Adapter extends PagerAdapter {
         return mItems.get(position).name;
     }
 
-    public Trees_Information getColorItem(int position) {
+    public Information getColorItem(int position) {
         return mItems.get(position);
     }
 
-    public void addAll(List<Trees_Information> items) {
+    public void addAll(List<Information> items) {
         mItems = new ArrayList<>(items);
     }
 

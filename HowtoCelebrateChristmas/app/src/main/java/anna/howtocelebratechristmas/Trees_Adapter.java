@@ -26,7 +26,7 @@ public class Trees_Adapter extends RecyclerTabLayout.Adapter<Trees_Adapter.ViewH
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Trees_Information treeInformation = mAdapater.getColorItem(position);
+        Information treeInformation = mAdapater.getColorItem(position);
         holder.title.setText(treeInformation.name);
         holder.color.setBackgroundColor(treeInformation.color);
 

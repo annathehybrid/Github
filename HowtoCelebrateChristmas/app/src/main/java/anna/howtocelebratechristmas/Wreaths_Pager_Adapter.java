@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Wreaths_Pager_Adapter extends PagerAdapter {
 
-    private List<Wreaths_Information> mItems = new ArrayList<>();
+    private List<Information> mItems = new ArrayList<>();
 
     public Wreaths_Pager_Adapter() {
 
@@ -85,11 +85,11 @@ public class Wreaths_Pager_Adapter extends PagerAdapter {
         return mItems.get(position).name;
     }
 
-    public Wreaths_Information getColorItem(int position) {
+    public Information getColorItem(int position) {
         return mItems.get(position);
     }
 
-    public void addAll(List<Wreaths_Information> items) {
+    public void addAll(List<Information> items) {
         mItems = new ArrayList<>(items);
     }
 

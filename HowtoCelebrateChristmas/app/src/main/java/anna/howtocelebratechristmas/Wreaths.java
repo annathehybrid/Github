@@ -18,9 +18,9 @@ public class Wreaths extends AppCompatActivity {
         setContentView(R.layout.activity_wreaths);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        List<Wreaths_Information> items = Wreaths_Data.load_wreath_items();
+        List<Information> items = Wreaths_Data.load_wreath_items();
 
         Wreaths_Pager_Adapter adapter = new Wreaths_Pager_Adapter();
         adapter.addAll(items);
