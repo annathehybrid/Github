@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="anna.takeapill.Tab_3">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Number of steps you took per hour"
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/graph"
+        android:layout_below="@+id/title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Want to know the best time to take your pill?"
+        android:id="@+id/analyze_me"
+        android:layout_below="@+id/graph"
+        android:layout_centerHorizontal="true"
+        android:onClick="analyze_me"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/your_analysis"
+        android:layout_below="@+id/analyze_me"
+        android:layout_alignLeft="@+id/analyze_me"
+        android:layout_alignStart="@+id/analyze_me"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/analyze_me"
+        android:layout_alignEnd="@+id/analyze_me" />
+
+
+
+
+</RelativeLayout>

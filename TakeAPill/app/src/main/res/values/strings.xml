@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Take A Pill</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_tab_1">Tab_1</string>
+    <string name="title_activity_tab_2">Tab_2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="December_1">December 1</string>
+    <string name="December_2">December 2</string>
+    <string name="December_3">December 3</string>
+    <string name="December_4">December 4</string>
+    <string name="December_5">December 5</string>
+    <string name="December_6">December 6</string>
+    <string name="December_7">December 7</string>
+    <string name="December_8">December 8</string>
+    <string name="December_9">December 9</string>
+    <string name="December_10">December 10</string>
+    <string name="December_11">December 11</string>
+    <string name="December_12">December 12</string>
+    <string name="December_13">December 13</string>
+    <string name="December_14">December 14</string>
+    <string name="title_activity_history">History</string>
+
+
+</resources>
