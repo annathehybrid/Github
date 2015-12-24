@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">How to Celebrate Winter Solstice</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="choice_1_string">Contemplate winter</string>
+    <string name="choice_2_string">Spend time with loved ones</string>
+    <string name="choice_3_string">Celebrate pagan traditions</string>
+    <string name="choice_4_string">Nibble on snacks</string>
+
+
+
+
+    <string name="title_activity_contemplate">Contemplate</string>
+    <string name="title_activity_love">Love</string>
+    <string name="title_activity_yule">Yule</string>
+    <string name="title_activity_test">Test</string>
+    <string name="title_activity_solstice">Solstice</string>
+    <string name="title_activity_snacks">Snacks</string>
+    <string name="title_activity_entrees">Entrees</string>
+</resources>

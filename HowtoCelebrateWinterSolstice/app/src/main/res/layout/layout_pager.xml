@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name goes here"
+        android:id="@+id/textbox_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Description goes here"
+
+        android:layout_marginTop="40dp"
+
+        android:id="@+id/textbox_description"
+        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/textbox_name"
+        android:layout_alignStart="@+id/textbox_name" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_call"
+        android:id="@+id/imageView"
+
+        android:layout_marginTop="40dp"
+
+        android:layout_below="@+id/textbox_name"
+        android:layout_alignLeft="@+id/textbox_description"
+        android:layout_alignStart="@+id/textbox_description" />
+</RelativeLayout>
+
+</ScrollView>
