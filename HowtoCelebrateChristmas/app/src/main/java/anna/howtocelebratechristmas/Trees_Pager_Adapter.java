@@ -17,9 +17,6 @@ public class Trees_Pager_Adapter extends PagerAdapter {
     private List<Information> mItems = new ArrayList<>();
 
     public Trees_Pager_Adapter() {
-
-
-
     }
 
     @Override

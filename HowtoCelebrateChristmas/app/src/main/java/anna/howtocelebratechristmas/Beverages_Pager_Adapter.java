@@ -43,15 +43,15 @@ public class Beverages_Pager_Adapter extends PagerAdapter {
         textView3.setClickable(true);
         textView3.setMovementMethod(LinkMovementMethod.getInstance());
 
-
+        // initialize the image
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-
-
+        // get the string id of the image from the information class
         String meeeeee = mItems.get(position).image;
-
+        // get the context of the image
         Context context = imageView.getContext();
+        // convert the string if of the image to an integar
         int id = context.getResources().getIdentifier(meeeeee, "drawable", context.getPackageName());
-
+        // set int id to the imageview
         imageView.setImageResource(id);
 
         container.addView(view);

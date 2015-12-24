@@ -28,9 +28,9 @@ public class Entrees extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
 
-        RecyclerTabLayout recyclerTabLayout = (RecyclerTabLayout)
-                findViewById(R.id.recycler_tab_layout);
-        recyclerTabLayout.setUpWithAdapter(new Entrees_Adapter(viewPager));
+        //RecyclerTabLayout recyclerTabLayout = (RecyclerTabLayout)
+        //        findViewById(R.id.recycler_tab_layout);
+        //recyclerTabLayout.setUpWithAdapter(new Entrees_Adapter(viewPager));
     }
 
 }
