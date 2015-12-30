@@ -19,15 +19,7 @@ public class Love extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         // Step 1: make an information class -done
@@ -52,7 +44,11 @@ public class Love extends AppCompatActivity {
         viewpager.setAdapter(pager_adapter);
 
 
-
+        // initialize the tab layout
+        RecyclerTabLayout recycler_tab_layout = (RecyclerTabLayout)
+                findViewById(R.id.recycler_tab_layout);
+        // set the tabs with the values from the tab adapter
+        recycler_tab_layout.setUpWithAdapter(new Tab_Adapter(viewpager));
 
     }
 

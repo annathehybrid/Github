@@ -28,7 +28,6 @@ public class RecyclerTabLayout extends RecyclerView {
     //protected static final float POSITION_THRESHOLD_ALLOWABLE = 0.001f;
 
     protected LinearLayoutManager mLinearLayoutManager;
-    protected RecyclerOnScrollListener mRecyclerOnScrollListener;
     protected ViewPager mViewPager;
     protected Adapter<?> mAdapter;
 
@@ -49,16 +48,6 @@ public class RecyclerTabLayout extends RecyclerView {
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         setLayoutManager(mLinearLayoutManager);
-        setItemAnimator(null);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        if (mRecyclerOnScrollListener != null) {
-            removeOnScrollListener(mRecyclerOnScrollListener);
-            mRecyclerOnScrollListener = null;
-        }
-        super.onDetachedFromWindow();
     }
 
     public void setUpWithAdapter(RecyclerTabLayout.Adapter<?> adapter) {
@@ -69,22 +58,8 @@ public class RecyclerTabLayout extends RecyclerView {
         }
         mViewPager.addOnPageChangeListener(new ViewPagerOnPageChangeListener(this));
         setAdapter(adapter);
-        scrollToTab(mViewPager.getCurrentItem());
     }
 
-    public void setCurrentItem(int position, boolean smoothScroll) {
-        if (mViewPager != null) {
-            mViewPager.setCurrentItem(position, smoothScroll);
-            scrollToTab(mViewPager.getCurrentItem());
-            return;
-        }
-    }
-
-    protected void scrollToTab(int position) {
-        scrollToTab(position, 0, false);
-        mAdapter.setCurrentIndicatorPosition(position);
-        mAdapter.notifyDataSetChanged();
-    }
 
     protected void scrollToTab(int position, float positionOffset, boolean fitIndicator) {
         int scrollOffset = 0;
@@ -93,31 +68,10 @@ public class RecyclerTabLayout extends RecyclerView {
         mOldPositionOffset = positionOffset;
     }
 
-    protected static class RecyclerOnScrollListener extends OnScrollListener {
-
-        protected RecyclerTabLayout mRecyclerTabLayout;
-        protected LinearLayoutManager mLinearLayoutManager;
-
-        public RecyclerOnScrollListener(RecyclerTabLayout recyclerTabLayout,
-                                        LinearLayoutManager linearLayoutManager) {
-            mRecyclerTabLayout = recyclerTabLayout;
-            mLinearLayoutManager = linearLayoutManager;
-        }
-
-        public int mDx;
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            mDx += dx;
-        }
-
-
-    }
 
     protected static class ViewPagerOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         private final RecyclerTabLayout mRecyclerTabLayout;
-        private int mScrollState;
 
         public ViewPagerOnPageChangeListener(RecyclerTabLayout recyclerTabLayout) {
             mRecyclerTabLayout = recyclerTabLayout;
@@ -128,14 +82,15 @@ public class RecyclerTabLayout extends RecyclerView {
             mRecyclerTabLayout.scrollToTab(position, positionOffset, false);
         }
 
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            mScrollState = state;
-        }
 
         @Override
         public void onPageSelected(int position) {
             // empty class
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            //empty class
         }
     }
 
@@ -143,7 +98,6 @@ public class RecyclerTabLayout extends RecyclerView {
             extends RecyclerView.Adapter<T> {
 
         protected ViewPager mViewPager;
-        protected int mIndicatorPosition;
 
         public Adapter(ViewPager viewPager) {
             mViewPager = viewPager;
@@ -151,14 +105,6 @@ public class RecyclerTabLayout extends RecyclerView {
 
         public ViewPager getViewPager() {
             return mViewPager;
-        }
-
-        public void setCurrentIndicatorPosition(int indicatorPosition) {
-            mIndicatorPosition = indicatorPosition;
-        }
-
-        public int getCurrentIndicatorPosition() {
-            return mIndicatorPosition;
         }
     }
 

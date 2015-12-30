@@ -79,11 +79,12 @@ public class Contemplate_Pager_Adapter extends PagerAdapter {
     public String getPageTitle(int position) {
         return array_items.get(position).name;
     }
-
-
-    public Information get_Item(int position) {
+    //make a get_item method
+    public Information get_item(int position) {
         return array_items.get(position);
     }
+
+
 
 
 }

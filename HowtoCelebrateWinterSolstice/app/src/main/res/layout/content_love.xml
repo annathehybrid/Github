@@ -14,12 +14,22 @@ tools:context="anna.howtocelebratewintersolstice.Love"
 tools:showIn="@layout/activity_love">
 
 
+<anna.howtocelebratewintersolstice.RecyclerTabLayout
+    android:id="@+id/recycler_tab_layout"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="?attr/colorPrimary"
+    >
+
+</anna.howtocelebratewintersolstice.RecyclerTabLayout>
+
+
 
 <android.support.v4.view.ViewPager
     android:id="@+id/view_pager"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    />
+    android:layout_below="@+id/recycler_tab_layout" />
 
 
 </RelativeLayout>

@@ -19,17 +19,6 @@ public class Yule extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
 
         // Step 1: make an information class -done
         // Step 2: make a data class to populate the data types in the information class
@@ -57,8 +46,8 @@ public class Yule extends AppCompatActivity {
         // initialize the recycler tab layout
         RecyclerTabLayout recycler_tab_layout = (RecyclerTabLayout)
                 findViewById(R.id.recycler_tab_layout);
-
-
+        // set the tabs with the values from the tab adapter
+        recycler_tab_layout.setUpWithAdapter(new Tab_Adapter(viewpager));
 
     }
 

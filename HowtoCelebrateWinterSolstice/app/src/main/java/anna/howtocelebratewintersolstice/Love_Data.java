@@ -46,7 +46,31 @@ public class Love_Data {
 
 
         // http://www.huffingtonpost.com/t-thorn-coyle/winter-solstice-honoring-_b_2340507.html
+
+
+        Information item_information_3 = new Information();
+        item_information_3.name = "Give gifts to your significant other";
+        item_information_3.description = "Show someone special that you care about them!\n\n" +
+                "The gift can be small -- it's the thought that counts!\n\n";
+        item_information_3.image = "love_3";
+        items.add(item_information_3);
+
+
+
+        Information item_information_4 = new Information();
+        item_information_4.name = "Send a card";
+        item_information_4.description = "Send someone a card through the post, with a stamp and " +
+                "everything!\n\n" +
+                "People love home-made cards too!\n\n";
+        item_information_4.image = "love_4";
+        items.add(item_information_4);
+
+
+        // http://www.huffingtonpost.com/t-thorn-coyle/winter-solstice-honoring-_b_2340507.html
         return items;
+
+
+
     }
 
 

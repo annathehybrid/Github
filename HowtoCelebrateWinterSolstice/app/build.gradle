@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        solstice {
+            keyAlias 'solstice'
+            keyPassword 'solstice'
+            storeFile file('solstice')
+            storePassword 'solstice'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "anna.howtocelebratewintersolstice"
         minSdkVersion 14

@@ -78,5 +78,18 @@ public class Pager_Adapter extends PagerAdapter {
 
     }
 
+    //make a get_item method
+    public Information get_item(int position) {
+        return array_items.get(position);
+    }
+
+
+    //make a get_page_item method
+    @Override
+    public String getPageTitle(int position) {
+        return array_items.get(position).name;
+    }
+
+
 
 }
