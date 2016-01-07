@@ -23,7 +23,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alarm On"
+        android:text="Set alarm"
         android:id="@+id/start_alarm"
         android:layout_below="@+id/alarmTimePicker"
         android:layout_alignParentLeft="true"
@@ -33,7 +33,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alarm Off"
+        android:text="Unset alarm"
         android:id="@+id/stop_alarm"
 
         android:layout_below="@+id/alarmTimePicker"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Some text"
+        android:text="Set the alarm clock!"
         android:id="@+id/alarmText"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

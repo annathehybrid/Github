@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class RingtonePlayingService extends Service {
 
@@ -19,15 +20,14 @@ public class RingtonePlayingService extends Service {
     @Override
     public IBinder onBind(Intent intent)
     {
-
         Log.e("MyActivity", "In the service");
-
         return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+
         Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         player = new MediaPlayer();
         try {
@@ -48,17 +48,20 @@ public class RingtonePlayingService extends Service {
             player.start();
         }
 
-
         Log.e("MyActivity", "In the service");
 
 
         return START_NOT_STICKY;
+
     }
 
     @Override
     public void onDestroy() {
         Log.e("JSLog", "on destroy called");
-        player.stop();
+        super.onDestroy();
 
+        player.stop();
     }
+
+
 }

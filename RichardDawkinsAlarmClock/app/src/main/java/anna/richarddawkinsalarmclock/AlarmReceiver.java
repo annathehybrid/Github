@@ -1,5 +1,6 @@
 package anna.richarddawkinsalarmclock;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -9,17 +10,15 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
 
-
 public class AlarmReceiver extends BroadcastReceiver {
 
     //this will sound the alarm tone
-    //this will sound the alarm once, if you wish to
-    //raise alarm in loop continuously then use MediaPlayer and setLooping(true)
     Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone ringtone;
 
@@ -30,18 +29,33 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Acquire the lock
         wl.acquire();
 
-        Toast.makeText(context, "I'm in the receiver", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Wake up!", Toast.LENGTH_SHORT).show();
+        Log.e("MyActivity", "In the receiver");
 
         //Release the lock
         wl.release();
 
-        Log.e("MyActivity", "In the receiver");
+        // start the Ringtone playing service
+        Intent i = new Intent(context, RingtonePlayingService.class);
+
+        Bundle extras = intent.getExtras();
+        String message = extras.getString("EXTRA");
+        Log.e("My extra string is ", message);
 
 
-        String snooze_or_not;
-        snooze_or_not = intent.getStringExtra("snooze");
-        Log.e("MyActivity", "received " + snooze_or_not);
+        // this switch statement isn't canceling the service
+        switch (message) {
+            case "goooooooooo":
+                context.startService(i);
 
+                break;
+            case "cancel":
+                context.startService(i);
+                break;
+            default:
+                context.startService(i);
+                break;
+        }
 
     }
 
@@ -54,8 +68,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);
 
         Toast.makeText(context, "one time alarm", Toast.LENGTH_SHORT).show();
-
-        //mp.stop();
 
     }
 
@@ -94,11 +106,4 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     }
 
-
 }
-
-
-    //Ringtone ringtone = RingtoneManager.getRingtone(this(), alarmUri);
-
-    //MediaPlayer mp = MediaPlayer.create(AlarmReceiver.this, notification);
-    //final MediaPlayer mp = MediaPlayer.create(AlarmReceiver.this, alarmUri);
