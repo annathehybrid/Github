@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Richard Dawkins Alarm Clock</string>
     <string name="action_settings">Settings</string>
+
+
+    <string-array name="dawkins_sounds">
+        <item>Pick a Random Dawkins quote</item>
+        <item>"Religion is the root of quite a lot of evil …"</item>
+        <item>"I yield to no one in my capacity to be moved …"</item>
+        <item>On Kurt Wise</item>
+        <item>"The universe is not sentient …"</item>
+        <item>"If someone from the Middle Ages were brought by time machine to now …"</item>
+        <item>"The idea of blind faith, believing something without evidence …"</item>
+        <item>The factuality of evolution</item>
+        <item>"My attitude to science is that …"</item>
+        <item>Religion does not have a monopoly on emotion, on poetry, on sympathy, on empathy</item>
+    </string-array>
+
+
+    <string name="country_prompt">Choose a country</string>
 </resources>

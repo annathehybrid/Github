@@ -13,7 +13,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,7 +26,7 @@ import java.util.Random;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     AlarmManager alarmManager;
     private PendingIntent pending_intent;
 
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     private AlarmReceiver alarm;
     private Context context;
+    Spinner spinner;
+    int richard_quote = 0;
+
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -58,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
         //calendar.add(Calendar.SECOND, 3);
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
 
+        //spinner creation
+        Spinner spinner = (Spinner) findViewById(R.id.richard_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.dawkins_sounds, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+
+
 
         Button start_alarm= (Button) findViewById(R.id.start_alarm);
         start_alarm.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
 
                 calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
                 calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
@@ -85,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 myIntent.putExtra("extra", "yes");
+                myIntent.putExtra("quote id", String.valueOf(richard_quote));
                 pending_intent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending_intent);
@@ -99,12 +119,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 myIntent.putExtra("extra", "no");
+                myIntent.putExtra("quote id", String.valueOf(richard_quote));
                 sendBroadcast(myIntent);
 
                 alarmManager.cancel(pending_intent);
                 setAlarmText("Alarm canceled");
+
+                //setAlarmText("ID is " + richard_quote);
             }
         });
 
@@ -153,4 +175,16 @@ public class MainActivity extends AppCompatActivity {
         Log.e("MyActivity", "on Destroy");
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        //Toast.makeText(parent.getContext(), "Spinner item 3!" + id, Toast.LENGTH_SHORT).show();
+        richard_quote = (int) id;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+
+    }
 }

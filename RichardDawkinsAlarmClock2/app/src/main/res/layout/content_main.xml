@@ -17,18 +17,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:scaleX="0.90"
+        android:scaleY="0.90"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Set alarm"
         android:id="@+id/start_alarm"
-        android:layout_below="@+id/alarmTimePicker"
+        android:onClick="startTimer"
+        android:layout_below="@+id/alarmText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="startTimer" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -36,10 +38,10 @@
         android:text="Unset alarm"
         android:id="@+id/stop_alarm"
 
-        android:layout_below="@+id/alarmTimePicker"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="cancelTimer" />
+        android:onClick="cancelTimer"
+        android:layout_below="@+id/alarmText"
+        android:layout_alignRight="@+id/alarmTimePicker"
+        android:layout_alignEnd="@+id/alarmTimePicker" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,10 +49,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Set the alarm clock!"
         android:id="@+id/alarmText"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/start_alarm" />
+        android:layout_below="@+id/alarmTimePicker"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/richard_spinner"
+        android:layout_below="@+id/start_alarm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:entries="@array/dawkins_sounds"
+        android:prompt="@string/country_prompt" />
+
 
 
 </RelativeLayout>
