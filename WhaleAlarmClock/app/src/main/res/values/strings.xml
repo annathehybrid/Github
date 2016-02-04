@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Whale Alarm Clock</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="whale_array">
+        <item>Humpback bubble net</item>
+        <item>Humpback contact Call Moo</item>
+        <item>Humpback contact Call Whup</item>
+        <item>Humpback feeding Call</item>
+        <item>Humpback flipper splash</item>
+        <item>Humpback Tail slaps</item>
+        <item>Humpback whale song</item>
+        <item>Humpback whale song with outboard engine</item>
+        <item>Humpback wheeze blows</item>
+        <item>Killer whale echolocation clicks</item>
+        <item>Killer whale offshore</item>
+        <item>Killer whale resident</item>
+        <item>Killer whale transient</item>
+    </string-array>
+
+</resources>
