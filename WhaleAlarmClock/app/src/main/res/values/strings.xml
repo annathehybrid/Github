@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="whale_array">
+        <item>Pick a whale sound!</item>
         <item>Humpback bubble net</item>
         <item>Humpback contact Call Moo</item>
         <item>Humpback contact Call Whup</item>

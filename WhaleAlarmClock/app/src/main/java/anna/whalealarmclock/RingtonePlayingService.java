@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.security.Provider;
+import java.util.Random;
 
 
 public class RingtonePlayingService extends Service {
@@ -34,11 +35,13 @@ public class RingtonePlayingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
-        // fetch the extra string values
+        // fetch the extra string from the alarm on/alarm off values
         String state = intent.getExtras().getString("extra");
+        // fetch the whale choice integer values
+        Integer whale_sound_choice = intent.getExtras().getInt("whale_choice");
 
         Log.e("Ringtone extra is ", state);
-
+        Log.e("Whale choice is ", whale_sound_choice.toString());
 
         // put the notification here, test it out
 
@@ -88,16 +91,157 @@ public class RingtonePlayingService extends Service {
         if (!this.isRunning && startId == 1) {
             Log.e("there is no music, ", "and you want start");
 
-            // create an instance of the media player
-            media_song = MediaPlayer.create(this, R.raw.killerwhale_resident);
-            // start the ringtone
-            media_song.start();
-
             this.isRunning = true;
             this.startId = 0;
 
             // set up the start command for the notification
             notify_manager.notify(0, notification_popup);
+
+
+
+            // play the whale sound depending on the passed whale choice id
+
+            if (whale_sound_choice == 0) {
+                // play a randomly picked audio file
+
+                int minimum_number = 1;
+                int maximum_number = 13;
+
+                Random random_number = new Random();
+                int whale_number = random_number.nextInt(maximum_number + minimum_number);
+                Log.e("random number is " , String.valueOf(whale_number));
+
+
+                if (whale_number == 1) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_bubblenet_and_vocals);
+                    media_song.start();
+                }
+                else if (whale_number == 2) {
+                    // create an instance of the media player
+                    media_song = MediaPlayer.create(this, R.raw.humpback_contact_call_moo);
+                    // start the ringtone
+                    media_song.start();
+                }
+                else if (whale_number == 3) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_contact_call_whup);
+                    media_song.start();
+                }
+                else if (whale_number == 4) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_feeding_call);
+                    media_song.start();
+                }
+                else if (whale_number == 5) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_flipper_splash);
+                    media_song.start();
+                }
+                else if (whale_number == 6) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_tail_slaps_with_propeller_whine);
+                    media_song.start();
+                }
+                else if (whale_number == 7) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_whale_song);
+                    media_song.start();
+                }
+                else if (whale_number == 8) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_whale_song_with_outboard_engine_noise);
+                    media_song.start();
+                }
+                else if (whale_number == 9) {
+                    media_song = MediaPlayer.create(this, R.raw.humpback_wheeze_blows);
+                    media_song.start();
+                }
+                else if (whale_number == 10) {
+                    media_song = MediaPlayer.create(this, R.raw.killerwhale_echolocation_clicks);
+                    media_song.start();
+                }
+                else if (whale_number == 11) {
+                    media_song = MediaPlayer.create(this, R.raw.killerwhale_offshore);
+                    media_song.start();
+                }
+                else if (whale_number == 12) {
+                    media_song = MediaPlayer.create(this, R.raw.killerwhale_resident);
+                    media_song.start();
+                }
+                else if (whale_number == 13) {
+                    media_song = MediaPlayer.create(this, R.raw.killerwhale_transient);
+                    media_song.start();
+                }
+                else {
+                    media_song = MediaPlayer.create(this, R.raw.killerwhale_resident);
+                    media_song.start();
+                }
+
+
+            }
+            else if (whale_sound_choice == 1) {
+                // create an instance of the media player
+                media_song = MediaPlayer.create(this, R.raw.humpback_bubblenet_and_vocals);
+                // start the ringtone
+                media_song.start();
+            }
+            else if (whale_sound_choice == 2) {
+                // create an instance of the media player
+                media_song = MediaPlayer.create(this, R.raw.humpback_contact_call_moo);
+                // start the ringtone
+                media_song.start();
+            }
+            else if (whale_sound_choice == 3) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_contact_call_whup);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 4) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_feeding_call);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 5) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_flipper_splash);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 6) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_tail_slaps_with_propeller_whine);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 7) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_whale_song);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 8) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_whale_song_with_outboard_engine_noise);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 9) {
+                media_song = MediaPlayer.create(this, R.raw.humpback_wheeze_blows);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 10) {
+                media_song = MediaPlayer.create(this, R.raw.killerwhale_echolocation_clicks);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 11) {
+                media_song = MediaPlayer.create(this, R.raw.killerwhale_offshore);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 12) {
+                media_song = MediaPlayer.create(this, R.raw.killerwhale_resident);
+                media_song.start();
+            }
+            else if (whale_sound_choice == 13) {
+                media_song = MediaPlayer.create(this, R.raw.killerwhale_transient);
+                media_song.start();
+            }
+            else {
+                media_song = MediaPlayer.create(this, R.raw.killerwhale_resident);
+                media_song.start();
+            }
+
+
+
+
+
+
+
+
+
 
         }
 
