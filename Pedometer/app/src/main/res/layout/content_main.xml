@@ -20,23 +20,14 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/textView" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Turn Pedometer On"
-        android:id="@+id/pedometer_switch"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/update_text"
-        android:layout_below="@+id/pedometer_switch"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView" />
 
 
     <com.jjoe64.graphview.GraphView

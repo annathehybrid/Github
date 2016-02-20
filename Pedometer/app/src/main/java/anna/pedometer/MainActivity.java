@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -31,10 +32,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //private Sensor mAccelerometer;
     TextView update_text;
     boolean on_or_off;
-
-
-
-    int flag = 0;
 
     // Steps counted in current session
     private int mSteps = 0;
@@ -62,50 +59,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // we want to make a pedometer sensor
         mySensor_Pedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
+        // check your preferences
+        checkValues();
+
+        mPreviousCounterSteps = mSteps;
+
+    }
+
+    private void checkValues() {
+
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean pedometer_on_off = shared_preferences.getBoolean("switch", true);
+        String strUserName = shared_preferences.getString("username", "NA");
+        boolean bAppUpdates = shared_preferences.getBoolean("applicationUpdates", false);
+        String downloadType = shared_preferences.getString("downloadType","1");
 
 
-        //mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+        Log.e("on create: ", "check values: " + pedometer_on_off );
 
+        if (pedometer_on_off) {
+            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
 
-
-
-
-
-
-        Switch toggle = (Switch) findViewById(R.id.pedometer_switch);
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    Log.e("You pressed toggle: ", "on");
-
-                    // register the listener for the pedometer
-                    mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-                    SharedPreferences sharedPref = getSharedPreferences("Settings_Pedometer", 0);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putBoolean("switch", true);
-                    editor.apply();
-
-                } else {
-                    // The toggle is disabled
-                    Log.e("You pressed toggle: ", "off");
-                    mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-
-                    SharedPreferences sharedPref = getSharedPreferences("Settings_Pedometer", 0);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putBoolean("switch", false);
-                    editor.apply();
-
-                }
-            }
-        });
-
-
-
-        //mPreviousCounterSteps = mSteps;
-
-
+        }
+        else {
+            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+        }
 
     }
 
@@ -113,12 +91,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         update_text.setText(output);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
 
     public void Today_Button(View view) {
@@ -131,6 +104,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivity(intent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,8 +118,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.preferences) {
+            Intent intent = new Intent();
+            intent.setClassName(this, "anna.pedometer.MyPreference");
+            startActivity(intent);
             return true;
         }
 
@@ -151,15 +134,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         //mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
-        SharedPreferences sharedPref = getSharedPreferences("Settings_Pedometer", 0);
-        boolean on_or_off = sharedPref.getBoolean("switch", false);
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+
             Log.e("on resume: ", "on " + String.valueOf(on_or_off));
         }
         else {
             mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+
             Log.e("on resume: ", "off" + String.valueOf(on_or_off));
         }
 
@@ -169,17 +154,39 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         //mSensorManager.unregisterListener(this);
-        SharedPreferences sharedPref = getSharedPreferences("Settings_Pedometer", 0);
-        boolean on_or_off = sharedPref.getBoolean("switch", false);
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+
             Log.e("on pause: ", "on" + String.valueOf(on_or_off));
         }
         else {
             mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+
             Log.e("on pause: ", "off" + String.valueOf(on_or_off));
         }
+    }
+
+
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean on_or_off = shared_preferences.getBoolean("switch", false);
+
+        if (on_or_off) {
+            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+            Log.e("on pause: ", "on" + String.valueOf(on_or_off));
+        }
+        else {
+            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+
+            Log.e("on pause: ", "off" + String.valueOf(on_or_off));
+        }
+
     }
 
 
@@ -188,18 +195,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // initiate the sensor events
         Sensor sensor = event.sensor;
 
-        //
         // to differentiate it between it and the accelerometer
         if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             if (mCounterSteps < 1) {
                 // initial value
                 mCounterSteps = (int) event.values[0];
-            }
-
-            if (flag == 1) {
-                // initial value
-                mCounterSteps = (int) event.values[0];
-                flag = 0;
             }
 
             // Calculate steps taken based on first counter value received.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<preference-headers
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header
+        android:fragment="anna.pedometer.MyPreferenceFragment"
+        android:title="Turn the pedometer on or off"
+        android:summary="Turn off to save battery life" />
+
+    <header
+        android:fragment="anna.pedometer.MyPreferenceFragment"
+        android:title="This is an extra header"
+        android:summary="fill it with something if you want" />
+
+
+</preference-headers>

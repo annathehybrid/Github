@@ -36,6 +36,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="anna.pedometer.MainActivity" />
         </activity>
+        <activity
+            android:name=".MyPreference"
+            android:label="@string/title_activity_my_preference"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.pedometer.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
