@@ -67,52 +67,44 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Restore preferences
         SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        //SharedPreferences shared_steps = getSharedPreferences("Settings", 0);
-        mSteps = shared_preferences.getInt("number of steps", 27);
+        //mSteps = shared_preferences.getInt("number of steps", 27);
 
         //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
 
+        // Check whether we're recreating a previously destroyed instance
+        if (savedInstanceState != null) {
 
-        // if the user has chosen pedometer on
-        // register the listener
-        if (on_or_off) {
+            // if the user has chosen pedometer on
+            // register the listener
+            if (on_or_off) {
 
-            // Check whether we're recreating a previously destroyed instance
-            if (savedInstanceState != null) {
                 // Restore value of members from saved state
                 mSteps = savedInstanceState.getInt(M_STEPS);
+                mPreviousCounterSteps = mSteps;
 
-            } else {
-                // Probably initialize members with default values for a new instance
-                //mSteps = 0;
-                Log.e("on instance saved: ", "called");
+                // check your preferences
+                checkValues();
+
+            }
+            // else if the user has chosen pedometer off
+            // unregister the listener
+            else {
+                //mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+                Log.e("on create: ", "off" + String.valueOf(on_or_off));
             }
 
 
+        } else {
+            // Probably initialize members with default values for a new instance
+            //mSteps = 0;
+            Log.e("on instance saved: ", "called");
 
-
-            // check your preferences
-            checkValues();
-
-            mPreviousCounterSteps = mSteps;
-
-
-
+            //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
+            mSteps = shared_preferences.getInt("number of steps", 27);
+            Log.e("on create: ", "why is it " + String.valueOf(mSteps));
         }
-        // else if the user has chosen pedometer off
-        // unregister the listener
-        else {
-            //mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-            Log.e("on create: ", "off" + String.valueOf(on_or_off));
-        }
-
-
-
-
-
-
 
     }
 
@@ -208,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         editor.apply();
 
 
-
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
             Log.e("on resume: ", "on " + String.valueOf(on_or_off));
@@ -294,6 +285,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // initiate the sensor events
         Sensor sensor = event.sensor;
 
+
+        // check if the user has checked whether they want the pedometer off or on
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+
         // to differentiate it between it and the accelerometer
         if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             if (mCounterSteps < 1) {
@@ -307,7 +303,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // Add the number of steps previously taken, otherwise the counter would start at 0.
             // This is needed to keep the counter consistent across rotation changes.
             mSteps = mSteps + mPreviousCounterSteps;
-            //mSteps += mPreviousCounterSteps;
+
+            // We need an Editor object to make preference changes.
+            // All objects are from android.context.Context
+            SharedPreferences.Editor editor = shared_preferences.edit();
+            editor.putInt("number of steps", mSteps);
+
+            // Commit the edits!
+            editor.apply();
 
         }
 
