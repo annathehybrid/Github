@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // changes
     private int mPreviousCounterSteps = 0;
 
+    static final String M_STEPS = "mSteps";
+    static final String M_COUNTER_STEPS = "mCounterSteps";
+    static final String M_PREVIOUS_COUNTER_STEPS = "mPreviousCounterSteps";
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         //initialize our text update box
         update_text = (TextView) findViewById(R.id.update_text);
 
@@ -59,12 +64,69 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // we want to make a pedometer sensor
         mySensor_Pedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
-        // check your preferences
-        checkValues();
 
-        mPreviousCounterSteps = mSteps;
+        // Restore preferences
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        //SharedPreferences shared_steps = getSharedPreferences("Settings", 0);
+        mSteps = shared_preferences.getInt("number of steps", 27);
+
+        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
+        boolean on_or_off = shared_preferences.getBoolean("switch", false);
+
+
+
+        // if the user has chosen pedometer on
+        // register the listener
+        if (on_or_off) {
+
+            // Check whether we're recreating a previously destroyed instance
+            if (savedInstanceState != null) {
+                // Restore value of members from saved state
+                mSteps = savedInstanceState.getInt(M_STEPS);
+
+            } else {
+                // Probably initialize members with default values for a new instance
+                //mSteps = 0;
+                Log.e("on instance saved: ", "called");
+            }
+
+
+
+
+            // check your preferences
+            checkValues();
+
+            mPreviousCounterSteps = mSteps;
+
+
+
+        }
+        // else if the user has chosen pedometer off
+        // unregister the listener
+        else {
+            //mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+            Log.e("on create: ", "off" + String.valueOf(on_or_off));
+        }
+
+
+
+
+
+
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putInt(M_STEPS, mSteps);
+        savedInstanceState.putInt(M_COUNTER_STEPS, mCounterSteps);
+        savedInstanceState.putInt(M_PREVIOUS_COUNTER_STEPS, mPreviousCounterSteps);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
 
     private void checkValues() {
 
@@ -72,10 +134,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         boolean pedometer_on_off = shared_preferences.getBoolean("switch", true);
         String strUserName = shared_preferences.getString("username", "NA");
         boolean bAppUpdates = shared_preferences.getBoolean("applicationUpdates", false);
-        String downloadType = shared_preferences.getString("downloadType","1");
 
 
-        Log.e("on create: ", "check values: " + pedometer_on_off );
+        Log.e("on create: ", "check values: " + pedometer_on_off);
 
         if (pedometer_on_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -133,18 +194,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume() {
         super.onResume();
         //mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
         SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
+
+
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences.Editor editor = shared_preferences.edit();
+        editor.putInt("number of steps", mSteps);
+
+        // Commit the edits!
+        editor.apply();
+
+
 
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-
             Log.e("on resume: ", "on " + String.valueOf(on_or_off));
         }
         else {
             mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-
             Log.e("on resume: ", "off" + String.valueOf(on_or_off));
         }
 
@@ -153,18 +223,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     protected void onPause() {
         super.onPause();
-        //mSensorManager.unregisterListener(this);
+
+        // check if the user has checked whether they want the pedometer off or on
         SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences.Editor editor = shared_preferences.edit();
+        editor.putInt("number of steps", mSteps);
+
+        // Commit the edits!
+        editor.apply();
+
+
+        // if the user has chosen pedometer on
+        // register the listener
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-
             Log.e("on pause: ", "on" + String.valueOf(on_or_off));
         }
+        // else if the user has chosen pedometer off
+        // unregister the listener
         else {
             mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-
             Log.e("on pause: ", "off" + String.valueOf(on_or_off));
         }
     }
@@ -173,21 +256,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onStop() {
         super.onStop();
 
+        // check if the user has checked whether they want the pedometer off or on
         SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
+
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences.Editor editor = shared_preferences.edit();
+        editor.putInt("number of steps", mSteps);
+
+        // Commit the edits!
+        editor.apply();
+
+
+
+        // if the user has chosen pedometer on
+        // register the listener
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-            Log.e("on pause: ", "on" + String.valueOf(on_or_off));
+            Log.e("on stop: ", "on" + String.valueOf(on_or_off));
         }
+        // else if the user has chosen pedometer off
+        // unregister the listener
         else {
             mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-
-            Log.e("on pause: ", "off" + String.valueOf(on_or_off));
+            Log.e("on stop: ", "off" + String.valueOf(on_or_off));
         }
 
     }
+
 
 
     @Override
@@ -208,10 +307,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // Add the number of steps previously taken, otherwise the counter would start at 0.
             // This is needed to keep the counter consistent across rotation changes.
             mSteps = mSteps + mPreviousCounterSteps;
+            //mSteps += mPreviousCounterSteps;
 
         }
-
-
 
 
         // method that changes the update text Textbox
@@ -223,4 +321,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Not in use
     }
+
+
 }
+
+
