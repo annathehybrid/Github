@@ -1,6 +1,9 @@
 package anna.pedometer;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +26,13 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -66,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         // Restore preferences
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //mSteps = shared_preferences.getInt("number of steps", 27);
 
         //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
@@ -102,8 +111,47 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.e("on instance saved: ", "called");
 
             //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
-            mSteps = shared_preferences.getInt("number of steps", 27);
             Log.e("on create: ", "why is it " + String.valueOf(mSteps));
+
+            mPreviousCounterSteps = shared_preferences.getInt("number of steps", 27);
+        }
+
+
+        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+        Integer current_hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
+
+
+        HashMap<String, Integer> meMap=new HashMap<String, Integer>();
+        meMap.put("First item", 10);
+        meMap.put("Second item", 12);
+        meMap.put("Third item", 32);
+        meMap.put("Fourth item", 39);
+
+        Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+
+        final NotificationManager mNM = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+
+        Notification mNotify  = new Notification.Builder(this)
+                .setContentTitle("The pedometer is running" + "!")
+                .setContentText("Click me!")
+
+                .setSmallIcon(R.drawable.green_square)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .build();
+
+        mNM.notify(0, mNotify);
+
+
+
+        for (Object loop_object : meMap.keySet()) {
+            String key = (String) loop_object;
+            Integer value = (Integer) meMap.get(key);
+
+            Toast.makeText(getBaseContext(), key + " and " + value,
+                    Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -122,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void checkValues() {
 
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean pedometer_on_off = shared_preferences.getBoolean("switch", true);
         String strUserName = shared_preferences.getString("username", "NA");
         boolean bAppUpdates = shared_preferences.getBoolean("applicationUpdates", false);
@@ -186,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume() {
         super.onResume();
         //mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
@@ -198,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Commit the edits!
         editor.apply();
-
 
         if (on_or_off) {
             mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -216,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
 
         // check if the user has checked whether they want the pedometer off or on
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
@@ -248,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onStop();
 
         // check if the user has checked whether they want the pedometer off or on
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
         boolean on_or_off = shared_preferences.getBoolean("switch", false);
 
@@ -279,6 +326,45 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //Write your code here
+
+        // check if the user has checked whether they want the pedometer off or on
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
+        boolean on_or_off = shared_preferences.getBoolean("switch", false);
+
+
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences.Editor editor = shared_preferences.edit();
+        editor.putInt("number of steps", mSteps);
+
+        // Commit the edits!
+        editor.apply();
+
+
+
+        // if the user has chosen pedometer on
+        // register the listener
+        if (on_or_off) {
+            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+            Log.e("on destroy: ", "on" + String.valueOf(on_or_off));
+
+        }
+        // else if the user has chosen pedometer off
+        // unregister the listener
+        else {
+            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+            Log.e("on destroy: ", "off" + String.valueOf(on_or_off));
+        }
+
+
+
+    }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -287,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         // check if the user has checked whether they want the pedometer off or on
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
         // to differentiate it between it and the accelerometer
@@ -308,6 +394,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // All objects are from android.context.Context
             SharedPreferences.Editor editor = shared_preferences.edit();
             editor.putInt("number of steps", mSteps);
+
+            Log.e("number of steps is ", String.valueOf(mSteps));
 
             // Commit the edits!
             editor.apply();
