@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //private Sensor mAccelerometer;
     TextView update_text;
     boolean on_or_off;
+    String hour_graph;
 
     // Steps counted in current session
-    private int mSteps = 0;
+    public static int mSteps = 0;
     // Value of the step counter sensor when the listener was registered.
     // (Total steps are calculated from this value.)
     private int mCounterSteps = 0;
@@ -122,10 +123,34 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         HashMap<String, Integer> meMap=new HashMap<String, Integer>();
-        meMap.put("First item", 10);
-        meMap.put("Second item", 12);
-        meMap.put("Third item", 32);
-        meMap.put("Fourth item", 39);
+
+
+        hour_graph = "Hour";
+        if (current_hour < 10) {
+            hour_graph = hour_graph + "0" + current_hour;
+        }
+        else {
+            hour_graph = hour_graph + current_hour;
+        }
+
+        meMap.put(hour_graph, 111);
+
+        for (Object loop_object : meMap.keySet()) {
+            String key = (String) loop_object;
+            Integer value = (Integer) meMap.get(key);
+
+            //String key = entry.getKey();
+            //Object value = entry.getValue();
+
+            Toast.makeText(getBaseContext(), key + " and " + value,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
+
 
         Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
@@ -142,17 +167,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .setAutoCancel(true)
                 .build();
 
-        mNM.notify(0, mNotify);
+        //mNM.notify(0, mNotify);
 
 
 
-        for (Object loop_object : meMap.keySet()) {
-            String key = (String) loop_object;
-            Integer value = (Integer) meMap.get(key);
-
-            Toast.makeText(getBaseContext(), key + " and " + value,
-                    Toast.LENGTH_SHORT).show();
-        }
 
     }
 
