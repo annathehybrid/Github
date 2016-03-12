@@ -29,12 +29,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity  {
 
     private Sensor mySensor_Pedometer;
     private SensorManager mSensorManager;
@@ -66,21 +70,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setSupportActionBar(toolbar);
 
 
+
         //initialize our text update box
         update_text = (TextView) findViewById(R.id.update_text);
-
-        // get the sensor service
-        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        // we want to make a pedometer sensor
-        mySensor_Pedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        // method that changes the update text Textbox
+        set_alarm_text("You walked: " + mSteps);
 
 
-        // Restore preferences
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //mSteps = shared_preferences.getInt("number of steps", 27);
+        // method to make a graph
+        make_graph();
 
-        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
-        boolean on_or_off = shared_preferences.getBoolean("switch", false);
+
+        // start the service
+        Intent pedometer_broadcast_intent = new Intent(this.getApplicationContext(), PedometerReceiver.class);
+        sendBroadcast(pedometer_broadcast_intent);
 
 
         // Check whether we're recreating a previously destroyed instance
@@ -94,9 +97,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 mSteps = savedInstanceState.getInt(M_STEPS);
                 mPreviousCounterSteps = mSteps;
 
-                // check your preferences
-                checkValues();
-
             }
             // else if the user has chosen pedometer off
             // unregister the listener
@@ -106,21 +106,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
 
-        } else {
-            // Probably initialize members with default values for a new instance
-            //mSteps = 0;
-            Log.e("on instance saved: ", "called");
-
-            //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
-            Log.e("on create: ", "why is it " + String.valueOf(mSteps));
-
-            mPreviousCounterSteps = shared_preferences.getInt("number of steps", 27);
         }
 
 
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
         Integer current_hour = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
-
 
         HashMap<String, Integer> meMap=new HashMap<String, Integer>();
 
@@ -148,30 +138,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
 
-
-
-
-
-        Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
-
-        final NotificationManager mNM = (NotificationManager)
-                getSystemService(NOTIFICATION_SERVICE);
-
-        Notification mNotify  = new Notification.Builder(this)
-                .setContentTitle("The pedometer is running" + "!")
-                .setContentText("Click me!")
-
-                .setSmallIcon(R.drawable.green_square)
-                .setContentIntent(pIntent)
-                .setAutoCancel(true)
-                .build();
-
-        //mNM.notify(0, mNotify);
-
-
-
-
     }
 
     @Override
@@ -186,31 +152,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    private void checkValues() {
-
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean pedometer_on_off = shared_preferences.getBoolean("switch", true);
-        String strUserName = shared_preferences.getString("username", "NA");
-        boolean bAppUpdates = shared_preferences.getBoolean("applicationUpdates", false);
-
-
-        Log.e("on create: ", "check values: " + pedometer_on_off);
-
-        if (pedometer_on_off) {
-            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-        }
-        else {
-            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-        }
-
-    }
 
     private void set_alarm_text(String output) {
         update_text.setText(output);
     }
-
-
 
 
     public void Today_Button(View view) {
@@ -265,16 +210,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Commit the edits!
         editor.apply();
 
-        if (on_or_off) {
-            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-            Log.e("on resume: ", "on " + String.valueOf(on_or_off));
-        }
-        else {
-            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-            Log.e("on resume: ", "off" + String.valueOf(on_or_off));
-        }
-
-
+        //if (on_or_off) {
+        //    mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+        //    Log.e("on resume: ", "on " + String.valueOf(on_or_off));
+        //}
+        //else {
+        //    mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+        //    Log.e("on resume: ", "off" + String.valueOf(on_or_off));
+        //}
     }
 
     protected void onPause() {
@@ -296,16 +239,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // if the user has chosen pedometer on
         // register the listener
-        if (on_or_off) {
-            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-            Log.e("on pause: ", "on" + String.valueOf(on_or_off));
-        }
+        //if (on_or_off) {
+        //    mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+        //    Log.e("on pause: ", "on" + String.valueOf(on_or_off));
+        //}
         // else if the user has chosen pedometer off
         // unregister the listener
-        else {
-            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-            Log.e("on pause: ", "off" + String.valueOf(on_or_off));
-        }
+        //else {
+        //    mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+        //    Log.e("on pause: ", "off" + String.valueOf(on_or_off));
+        //}
     }
 
 
@@ -330,16 +273,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // if the user has chosen pedometer on
         // register the listener
-        if (on_or_off) {
-            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-            Log.e("on stop: ", "on" + String.valueOf(on_or_off));
-        }
+        //if (on_or_off) {
+        //    mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+        //    Log.e("on stop: ", "on" + String.valueOf(on_or_off));
+        //}
         // else if the user has chosen pedometer off
         // unregister the listener
-        else {
-            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-            Log.e("on stop: ", "off" + String.valueOf(on_or_off));
-        }
+        //else {
+        //    mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
+        //    Log.e("on stop: ", "off" + String.valueOf(on_or_off));
+        //}
 
     }
 
@@ -348,88 +291,55 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onDestroy() {
         super.onDestroy();
         //Write your code here
-
-        // check if the user has checked whether they want the pedometer off or on
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //SharedPreferences shared_preferences = getSharedPreferences("Settings", 0);
-        boolean on_or_off = shared_preferences.getBoolean("switch", false);
-
-
-        // We need an Editor object to make preference changes.
-        // All objects are from android.context.Context
-        SharedPreferences.Editor editor = shared_preferences.edit();
-        editor.putInt("number of steps", mSteps);
-
-        // Commit the edits!
-        editor.apply();
-
-
-
-        // if the user has chosen pedometer on
-        // register the listener
-        if (on_or_off) {
-            mSensorManager.registerListener(MainActivity.this, mySensor_Pedometer, SensorManager.SENSOR_DELAY_NORMAL);
-            Log.e("on destroy: ", "on" + String.valueOf(on_or_off));
-
-        }
-        // else if the user has chosen pedometer off
-        // unregister the listener
-        else {
-            mSensorManager.unregisterListener(MainActivity.this, mySensor_Pedometer);
-            Log.e("on destroy: ", "off" + String.valueOf(on_or_off));
-        }
-
-
-
     }
 
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        // initiate the sensor events
-        Sensor sensor = event.sensor;
+    private void make_graph() {
+        // make a graph
+        // find the graph on the layout
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+
+        graph.setTitle("number of steps per hour");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("number of steps");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("o'clock, military time");
+
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[]{
+                new DataPoint(1, 61),
+                new DataPoint(2, 62),
+                new DataPoint(3, 63),
+                new DataPoint(4, 64),
+                new DataPoint(5, 65),
+                new DataPoint(6, 66),
+                new DataPoint(7, 67),
+                new DataPoint(8, 68),
+                new DataPoint(9, 69),
+                new DataPoint(10, 610),
+                new DataPoint(11, 611),
+                new DataPoint(12, 612),
+                new DataPoint(13, 613),
+                new DataPoint(14, 614),
+                new DataPoint(15, 615),
+                new DataPoint(16, 616),
+                new DataPoint(17, 617),
+                new DataPoint(18, 618),
+                new DataPoint(19, 619),
+                new DataPoint(20, 620),
+                new DataPoint(21, 621),
+                new DataPoint(22, mPreviousCounterSteps),
+                new DataPoint(23, mCounterSteps),
+                new DataPoint(24, mSteps)
+
+        });
 
 
-        // check if the user has checked whether they want the pedometer off or on
-        SharedPreferences shared_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        graph.addSeries(series);
+        //graph.removeAllSeries();
 
-
-        // to differentiate it between it and the accelerometer
-        if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            if (mCounterSteps < 1) {
-                // initial value
-                mCounterSteps = (int) event.values[0];
-            }
-
-            // Calculate steps taken based on first counter value received.
-            mSteps = (int) event.values[0] - mCounterSteps;
-
-            // Add the number of steps previously taken, otherwise the counter would start at 0.
-            // This is needed to keep the counter consistent across rotation changes.
-            mSteps = mSteps + mPreviousCounterSteps;
-
-            // We need an Editor object to make preference changes.
-            // All objects are from android.context.Context
-            SharedPreferences.Editor editor = shared_preferences.edit();
-            editor.putInt("number of steps", mSteps);
-
-            Log.e("number of steps is ", String.valueOf(mSteps));
-
-            // Commit the edits!
-            editor.apply();
-
-        }
-
-
-        // method that changes the update text Textbox
-        set_alarm_text("You walked: " + mSteps);
+        //series.resetData(new DataPoint[]{
+        //});
 
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Not in use
-    }
 
 
 }

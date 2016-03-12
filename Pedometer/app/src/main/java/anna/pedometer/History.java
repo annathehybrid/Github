@@ -1,5 +1,6 @@
 package anna.pedometer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,6 +38,7 @@ public class History extends AppCompatActivity {
 
         // method that changes the update text Textbox
         set_alarm_text("You walked: " + MainActivity.mSteps);
+
 
 
     }

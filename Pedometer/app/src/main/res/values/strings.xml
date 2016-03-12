@@ -58,5 +58,7 @@
     <!-- Strings related to Notification preference -->
     <string name="pref_last_notification">last_notification</string>
     <string name="title_activity_my_preference">MyPreference</string>
+    <string name="title_activity_pedometer_receiver">PedometerReceiver</string>
+    <string name="title_activity_pedometer_service">PedometerService</string>
 
 </resources>

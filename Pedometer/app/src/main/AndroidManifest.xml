@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="anna.pedometer">
 
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="19" />
+
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+    <uses-feature android:name="android.hardware.sensor.stepdetector" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,6 +56,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="anna.pedometer.MainActivity" />
         </activity>
+        <activity
+            android:name=".PedometerReceiver"
+            android:label="@string/title_activity_pedometer_receiver"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.pedometer.MainActivity" />
+        </activity>
+        <activity
+            android:name=".PedometerService"
+            android:label="@string/title_activity_pedometer_service"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="anna.pedometer.MainActivity" />
+        </activity>
+
+        <receiver android:name=".PedometerReceiver" />
+
+        <service android:name=".PedometerService"
+            android:enabled="true">
+        </service>
     </application>
 
 </manifest>
